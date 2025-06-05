@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  font-family: "Reem Kufi Fun", sans-serif;
+  font-weight: 200;
+}
+
+body, html, #root {
+  height: 100vh;
+  background-color: var(--bg);
+}
+
+@theme {
+  --color-primary: hsl(51, 100%, 50%);
+  --color-p-hover: hsl(51, 100%, 60%);
+  --color-p-text: #000000;
+  --color-secondary: #000000;
+  --color-s-hover: hsl(0, 0%, 20%);
+  --color-bg: #efefef;
+  --color-bg-hover: hsl(0, 0%, 74%);
+}
+
+.darkmode {
+  --color-primary: hsl(51, 100%, 50%);
+  --color-p-hover: hsl(51, 100%, 60%);
+  --color-p-text: white;
+  --color-secondary: #ffffff;
+  --color-s-hover: hsl(0, 0%, 80%);
+  --color-bg: hsl(0, 0%, 10%);
+  --color-bg-hover: hsl(0, 0%, 30%);
+}
+
+:root {
+  --bg: #efefef;
+  --secondary: #000000;
+}
+
+:root.darkmode {
+  --bg: hsl(0, 0%, 10%);
+  --secondary: #FFFFFF;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1.3em;
+}
