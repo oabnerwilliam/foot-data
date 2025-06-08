@@ -21,7 +21,7 @@ export const get = async (url: string) => {
     }
 }
 
-export const post = async <T>(url: string, item: T) => {
+/*export const post = async <T>(url: string, item: T) => {
     try {
         const res = await fetch(url, {
             method: "POST",
@@ -90,4 +90,4 @@ export const remove = async (url: string) => {
     } catch(error) {
         console.log("Erro:", (error as Error).message)
     }
-}
+}*/
