@@ -51,10 +51,11 @@ const Navbar = () => {
                     className='self-center justify-self-start text-secondary decoration-none
                     transition-all duration-300 ease-in-out
                     relative hover:text-primary'
-                    ><h1>FOOT</h1></Link>
-                    <ul>
-                        <PageLink to="/table" text='Tabela'/>
-                    </ul>    
+                    ><h1>SPORTS</h1></Link>
+                    <ul className='flex justify-between gap-10'>
+                        <PageLink to="/" text='Futebol'/>
+                        <PageLink to="/mma" text='MMA'/>
+                    </ul>
                 </div>
             </nav>
         </>
