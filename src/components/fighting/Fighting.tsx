@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { get } from '../../util/requests/api'
 import Loader from '../layout/loader/Loader'
-import SearchSelect from '../layout/searchselect/SearchSelect'
 
 const Fighting = () => {
     const [categories, setCategories] = useState<string[]>([])
@@ -10,6 +9,7 @@ const Fighting = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('')
     const [category, setCategory] = useState<any>()
     const [fighters, setFighters] = useState<any []>([])
+    const [fighterSearch, setFighterSearch] = useState<string>('')
     
     useEffect(()=>{
         const fetchData = async ()=>{
@@ -35,26 +35,30 @@ const Fighting = () => {
         setCategory(foundCategory)
     }, [selectedCategory])
     
-    useEffect(()=>{
-        if (category) {
-            const fetchData = async ()=>{
-                setLoadingFighters(true)
-                
-                const data = await get(`https://v1.mma.api-sports.io/fighters?category=${category}`)
-
-                if (data) {
-                    setFighters(data.response)
-                    setLoadingFighters(false)
-                }
-            }
-            
-            fetchData()
-
-            /*setTimeout(()=>{
-                setLoadingFighters(false)
-            }, 1000)*/    
+    useEffect(() => {
+        if (!category) return;
+        if (!fighterSearch || fighterSearch.length < 2) {
+            setFighters([]);
+            return;
         }
-    }, [category])
+        const controller = new AbortController();
+        const debounceTimeout = setTimeout(() => {
+            const fetchData = async () => {
+                setLoadingFighters(true);
+                let url = `https://v1.mma.api-sports.io/fighters?category=${category}&search=${fighterSearch}`;
+                const data = await get(url);
+                if (data) {
+                    setFighters(data.response);
+                }
+                setLoadingFighters(false);
+            };
+            fetchData();
+        }, 400); // 400ms debounce
+        return () => {
+            clearTimeout(debounceTimeout);
+            controller.abort();
+        };
+    }, [category, fighterSearch])
     
     return (
         <div className='flex flex-col w-full items-center'>
@@ -64,8 +68,8 @@ const Fighting = () => {
                 ) : (
                     <>
                         <div className='mt-5 w-full flex
-                        justify-center'>
-                            <select className='text-p-text text-2xl w-[50%] outline-none' 
+                        justify-between px-20'>
+                            <select className='text-p-text text-2xl w-[30%] outline-none' 
                             onChange={(e)=>{
                                 setSelectedCategory(e.target.value)
                             }}
@@ -77,6 +81,14 @@ const Fighting = () => {
                                     ))   
                                 }
                             </select>
+                            <input type="text"
+                            onChange={(e)=>{
+                                setFighterSearch(e.target.value)
+                                console.log(e.target.value)
+                            }}
+                            placeholder='Pesquisar lutador...'
+                            className='border border-secondary p-3 w-[30%] outline-none'
+                            />
                             {/*
                                 teams && (
                                     <SearchSelect list={teams} selected={selectedTeam} setSelected={setSelectedTeam}/>    

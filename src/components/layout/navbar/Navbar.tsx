@@ -54,7 +54,7 @@ const Navbar = () => {
                     ><h1>SPORTS</h1></Link>
                     <ul className='flex justify-between gap-10'>
                         <PageLink to="/" text='Futebol'/>
-                        <PageLink to="/mma" text='MMA'/>
+                        <PageLink to="/basketball" text='Basquete'/>
                     </ul>
                 </div>
             </nav>

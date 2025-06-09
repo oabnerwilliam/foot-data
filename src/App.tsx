@@ -6,6 +6,9 @@ import Navbar from './components/layout/navbar/Navbar'
 import Footer from './components/layout/footer/Footer'
 import DarkButton from './components/layout/darkmode/DarkButton'
 import Fighting from './components/fighting/Fighting'
+import TeamPage from './components/teampage/TeamPage'
+import FootballTables from './components/football/FootballTables'
+import BasketballTables from './components/basketball/BasketballTables'
 
 function App() {
   return (
@@ -14,8 +17,10 @@ function App() {
         <Navbar/>
         <Container customClass='router'>
           <Routes>
-            <Route path='/' element={<Table/>}/>
+            <Route path='/' element={<FootballTables/>}/>
             <Route path='/mma' element={<Fighting/>}/>
+            <Route path='/team/:id' element={<TeamPage/>}/>
+            <Route path='/basketball' element={<BasketballTables/>}/>
           </Routes> 
         </Container>
         <Footer/>
